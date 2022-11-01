@@ -1,0 +1,22 @@
+services:
+  issuer:
+    image: bcgovimages/aries-cloudagent:py36-1.15-0_0.5.3
+    container_name: issuer-agent
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    command: start --inbound-transport http 0.0.0.0 8000 --outbound-transport http --genesis-url http://172.17.0.1:9000/genesis --log-level info --seed 000000000000000000000000Steward3 --wallet-key 123456 --wallet-name Issuer --wallet-type indy --admin 0.0.0.0 8001 --endpoint http://172.17.0.1:8000 --label ISSUER-Agent --auto-accept-invites --auto-accept-requests --auto-respond-messages --admin-insecure-mode --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-store-credential --auto-verify-presentation --wallet-local-did
+  holder:
+    image: bcgovimages/aries-cloudagent:py36-1.15-0_0.5.3
+    container_name: holder-agent
+    ports:
+      - "8050:8050"
+      - "8051:8051"
+    command: start --inbound-transport http 0.0.0.0 8050 --outbound-transport http --genesis-url http://172.17.0.1:9000/genesis --log-level info --seed 000000000000000000000000Steward3 --wallet-key 123456 --wallet-name Holder --wallet-type indy --admin 0.0.0.0 8051 --endpoint http://172.17.0.1:8050 --label HOLDER-Agent --auto-accept-invites --auto-accept-requests --auto-respond-messages --admin-insecure-mode --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-store-credential --auto-verify-presentation --wallet-local-did
+  verifier:
+    image: bcgovimages/aries-cloudagent:py36-1.15-0_0.5.3
+    container_name: verifier-agent
+    ports:
+      - "8060:8060"
+      - "8061:8061"
+    command: start --inbound-transport http 0.0.0.0 8060 --outbound-transport http --genesis-url http://172.17.0.1:9000/genesis --log-level info --seed 000000000000000000000000Steward3 --wallet-key 123456 --wallet-name Verifier --wallet-type indy --admin 0.0.0.0 8061 --endpoint http://172.17.0.1:8060 --label VERIFIER-Agent --auto-accept-invites --auto-accept-requests --auto-respond-messages --admin-insecure-mode --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-store-credential --auto-verify-presentation --wallet-local-did
